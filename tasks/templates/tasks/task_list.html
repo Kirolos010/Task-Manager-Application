@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+    <h2>Task List</h2>
+    <form method="GET">
+        <select name="status">
+            <option value="">All</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+        </select>
+        <input type="date" name="due_date">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.title }} - {{ task.status }} - {{ task.due_date }}
+                <a href="{% url 'edit_task' task.id %}">Edit</a>
+                <a href="{% url 'delete_task' task.id %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_task' %}" class="btn btn-primary">Create New Task</a>
+{% endblock %}
